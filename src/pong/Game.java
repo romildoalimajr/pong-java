@@ -25,12 +25,14 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	public BufferedImage layer = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	
 	public Player player;
+	public Enemy enemy;
 	
 	public Game() {
 		this.setPreferredSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
 		this.addKeyListener(this);
 		
 		player = new Player(100, HEIGHT-10);
+		enemy = new Enemy(100,0);
 	}
 	
 	public static void main(String[] args) {
@@ -50,6 +52,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	public void tick() {
 		
 		player.tick();
+		enemy.tick();
 		
 	}
 	
@@ -63,6 +66,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		player.render(g);
+		enemy.render(g);
 		
 		g = bs.getDrawGraphics();
 		g.drawImage(layer, 0, 0, WIDTH*SCALE, HEIGHT*SCALE, null);
@@ -96,10 +100,10 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			System.out.println("direita");
+			//System.out.println("direita");
 			player.right = true;
 		}else if(e.getKeyCode() == KeyEvent.VK_LEFT) {
-			System.out.println("esquerda");
+			//System.out.println("esquerda");
 			player.left = true;
 		}
 	}
@@ -108,10 +112,10 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			System.out.println("direita");
+			//System.out.println("direita");
 			player.right = false;
 		}else if(e.getKeyCode() == KeyEvent.VK_LEFT) {
-			System.out.println("esquerda");
+			//System.out.println("esquerda");
 			player.left = false;
 		}
 	}
