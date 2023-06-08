@@ -11,7 +11,7 @@ public class Ball {
 	public int width, height;
 	
 	public double dx, dy;
-	public double speed = 1.3;
+	public double speed = 1.7;
 	
 	public Ball(int x, int y) {
 		this.x = x;
@@ -19,21 +19,28 @@ public class Ball {
 		this.width = 4;
 		this.height = 4;
 		
-		this.dx = new Random().nextGaussian();
-		this.dy = new Random().nextGaussian();
+		int angle = new Random().nextInt((120-45)+45 + 1);
+		this.dx = Math.cos(Math.toRadians(angle));
+		this.dy = Math.sin(Math.toRadians(angle));
 	}
 	
 	public void tick() { 
 		if(x + (dx * speed) + width >= Game.WIDTH) {
 			dx *= -1;
-		}else if(x - (dx * speed) < 0 ) {
+		}else if(x + (dx * speed) < 0 ) {
 			dx *= -1;
 		}
 		
 		if(y >= Game.HEIGHT) {
-	;		//ponto do inimigo
+			//ponto do inimigo
+			System.out.println("Ponto do inimigo!");
+			new Game();
+			return;
 		}else if(y < 0) {
 			//ponto do player
+			System.out.println("Ponto do jogador!");
+			new Game();
+			return;
 		}
 		
 		Rectangle bounds = new Rectangle((int) (x + (dx * speed)), (int) (y + (dy * speed)), width, height);
@@ -43,9 +50,19 @@ public class Ball {
 		Rectangle boundsEnemy = new Rectangle((int)Game.enemy.x, (int)Game.enemy.y, Game.enemy.width, Game.enemy.height);
 		
 		if(bounds.intersects(boundsPlayer)) {
-			dy *= -1;
+			int angle = new Random().nextInt((120-45)+45 + 1);
+			this.dx = Math.cos(Math.toRadians(angle));
+			this.dy = Math.sin(Math.toRadians(angle));
+			if(dy > 0) {
+				dy *= -1;
+			}
 		}else if(bounds.intersects(boundsEnemy)) {
-			dy *= -1;
+			int angle = new Random().nextInt((120-45)+45 + 1);
+			this.dx = Math.cos(Math.toRadians(angle));
+			this.dy = Math.sin(Math.toRadians(angle));
+			if(dy < 0) {
+				dy *= -1;
+			}
 		}
 		
 		x += dx*speed;

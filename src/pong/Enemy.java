@@ -2,7 +2,6 @@ package pong;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Rectangle;
 
 public class Enemy {
 	
@@ -14,13 +13,12 @@ public class Enemy {
 		this.x = x;
 		this.y = y;
 		this.width = 40;
-		this.height = 10;
+		this.height = 5;
 	}
 
 	public void tick() {
-		x += (Game.ball.x - x - 6);
-		
-		
+		x += (Game.ball.x - x - 6) * 0.07;
+			
 	}
 	
 	public void render(Graphics g) {
